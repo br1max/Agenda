@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor Sostenibilità Globale 2026</title>
+    <style>
+        :root { --primary: #2c3e50; --secondary: #27ae60; --accent: #e74c3c; --bg: #f4f7f6; }
+        body { font-family: sans-serif; background: var(--bg); margin: 0; padding: 20px; color: var(--primary); }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        header { text-align: center; border-bottom: 2px solid var(--secondary); margin-bottom: 30px; padding-bottom: 10px; }
+        .goal-card { margin-bottom: 15px; }
+        .goal-info { display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: bold; }
+        .progress-bg { background: #e0e0e0; border-radius: 10px; height: 12px; overflow: hidden; }
+        .progress-fill { background: var(--secondary); height: 100%; transition: width 1.5s; }
+        .regressing { background: var(--accent) !important; }
+        iframe { border-radius: 10px; border: 1px solid #ddd; width: 100%; height: 500px; margin-top: 20px; }
+    </style>
 </head>
 <body>
-$END$
+<div class="container">
+    <header>
+        <h1>🌍 Monitor Globale: Agenda 2030 & Inquinamento</h1>
+        <p>Stato di avanzamento al 2026</p>
+    </header>
+    <h2>📊 Percentuale di Completamento SDG</h2>
+    <div id="sdg-container"></div>
+    <h2>🌬️ Qualità dell'Aria in Tempo Reale</h2>
+    <iframe src="https://aqicn.org/map/world/it/"></iframe>
+</div>
+<script>
+    const sdgData = [
+        { name: "1. Sconfiggere la povertà", progress: 28 },
+        { name: "2. Sconfiggere la fame (REGRESSO)", progress: 15, reg: true },
+        { name: "7. Energia pulita", progress: 55 },
+        { name: "11. Città sostenibili", progress: 32 },
+        { name: "13. Clima (REGRESSO)", progress: 12, reg: true }
+    ];
+    const container = document.getElementById('sdg-container');
+    sdgData.forEach(goal => {
+        container.innerHTML += `
+            <div class="goal-card">
+                <div class="goal-info"><span>${goal.name}</span><span>${goal.progress}%</span></div>
+                <div class="progress-bg"><div class="progress-fill ${goal.reg?'regressing':''}" style="width:${goal.progress}%"></div></div>
+            </div>`;
+    });
+</script>
 </body>
 </html>
